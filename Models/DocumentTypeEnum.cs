@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 
 namespace InvoiceRegister.Models
 {
-    public enum PaymentTypeEnum
+    public enum DocumentTypeEnum
     {
-        Gotowka,
-        Karta,
-        Przelew,
-        Przedplata
+        Invoice,
+        Correction
     }
 }

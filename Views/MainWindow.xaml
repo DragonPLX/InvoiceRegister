@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:InvoiceRegister"
         mc:Ignorable="d"
-        Title="Fakturomat" Height="450" Width="800">
+        Title="Fakturomat" Height="450" Width="1000">
     <DockPanel>
         <Menu DockPanel.Dock="Top" >
             <MenuItem Header="Dodaj">
@@ -17,8 +17,8 @@
             <MenuItem Header="Eksport rejestru">
                 <MenuItem Header="CSV"/>
                 <MenuItem Header="XLSX"/>
-            </MenuItem> 
-            <MenuItem Header="Dane Sprzedawcy" />
+            </MenuItem>
+            <MenuItem Header="Dane Podmiotu" />
             <MenuItem Header="Opcje"/>
         </Menu>
         <StackPanel DockPanel.Dock="Bottom">
@@ -28,14 +28,52 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 
-                <Label  Content="Wyszukaj po numerze faktury, nipie lub nazwie:" />
+                <Label  Content="Wyszukaj (Nazwa, NIP, Numer faktury, Kwota)" />
                 <TextBox Grid.Column="1" VerticalContentAlignment="Center" MaxHeight="150"/>
+
             </Grid>
-            <Separator/>
-            <ListView >
-                
-            </ListView>
-            
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="5" >
+                <RadioButton Content="Sprzedaż" Margin="10,0" IsChecked="True"/>
+                <RadioButton Content="Zakup"/>
+            </StackPanel>
+            <DataGrid Grid.ColumnSpan="2" ItemsSource="{Binding Path=InvoiceViewModel.Invoices}" AutoGenerateColumns="False" IsReadOnly="True">
+
+                <DataGrid.Columns>
+                    <DataGridTextColumn Width="*" Header="Nazwa klienta" Binding="{Binding Path=Purchaser.Name}"/>
+                    <DataGridTextColumn Width="*" Header="NIP" Binding="{Binding Path=Purchaser.Nip}"/>
+                    <DataGridTextColumn Width="*" Header="Numer faktury" Binding="{Binding Path=InvoiceNumber}"/>
+                    <DataGridTextColumn Width="auto" Header="Rodzaj"/>
+                    <DataGridTextColumn Width="*" Header="Data wystawienia" Binding="{Binding Path=DateOfIssue, StringFormat=yyyy-MM-dd}"/>
+                    <DataGridTextColumn Width="auto" Header="Data VAT" />
+                    <DataGridTextColumn Width="*" Header="Data płatności" Binding="{Binding Path=DateOfPayment, StringFormat=yyyy-MM-dd}" />
+                    <DataGridTextColumn Width="*" Header="Kwota" Binding="{Binding Path=TotalSumOfValueProductsOrServices}"/>
+                    <DataGridTextColumn Width="auto" Header="Płatności" Binding="{Binding Path=Payment}"/>
+                    <DataGridTemplateColumn Width="*" Header="Status">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock>
+                                    <TextBlock.Style>
+                                        <Style TargetType="{x:Type TextBlock}">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Path=Status}" Value="True">
+                                                    <Setter Property="Text" Value="Zapłacona"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Path=Status}" Value="False">
+                                                    <Setter Property="Text" Value="Nie zapłacona"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+
+
+            </DataGrid>
+
         </StackPanel>
     </DockPanel>
+
 </Window>

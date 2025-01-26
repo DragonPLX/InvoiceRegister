@@ -9,7 +9,12 @@ namespace InvoiceRegister.ViewModels
 {
     public class MainWindowViewModel : BaseNotifyPropertyChange
     {
+        public InvoiceViewModel InvoiceViewModel { get; }
 
+        public MainWindowViewModel() 
+        {
+            InvoiceViewModel = new InvoiceViewModel();
+        }
 
     }
 }

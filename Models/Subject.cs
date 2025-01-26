@@ -7,30 +7,173 @@ using System.Threading.Tasks;
 
 namespace InvoiceRegister.Models
 {
-    internal class Subject : BaseNotifyPropertyChange
+    public class Subject : BaseNotifyPropertyChange
     {
-        public string Nip {  get; }
-        public string Name { get; set; }
 
-        public bool IsIssuer { get; set; }
-        public string PostalCode {  get; set; }
+        private string nip;
+        public  string Nip
+        {
+            get => nip;
+            set
+            {
+                if (nip != value)
+                {
+                    nip = value;
+                    OnPropertyChange(nameof(Nip));
+                }
+            }
+        }
 
-        public string Street { get; set; }
+        private string name;
+        public  string Name
+        {
+            get => name;
+            set
+            {
+                if (name != value)
+                {
+                    name = value;
+                    OnPropertyChange(nameof(Name));
+                }
+            }
+        }
 
-        public string BuildingNumber { get; set; }
+        private bool isIssuer;
+        public bool IsIssuer
+        {
+            get => isIssuer;
+            set
+            {
+                if (isIssuer != value)
+                {
+                    isIssuer = value;
+                    OnPropertyChange(nameof(IsIssuer));
+                }
+            }
+        }
 
-        public string ApartmentNumber { get; set; }
+        private string postalCode;
+        public string PostalCode
+        {
+            get => postalCode;
+            set
+            {
+                if (postalCode != value)
+                {
+                    postalCode = value;
+                    OnPropertyChange(nameof(PostalCode));
+                }
+            }
+        }
 
-        public string City { get; set; }
+        private string street;
+        public string Street
+        {
+            get => street;
+            set
+            {
+                if (street != value)
+                {
+                    street = value;
+                    OnPropertyChange(nameof(Street));
+                }
+            }
+        }
 
-        public string? PhoneNumber { get; set; }
+        private string buildingNumber;
+        public string BuildingNumber
+        {
+            get => buildingNumber;
+            set
+            {
+                if (buildingNumber != value)
+                {
+                    buildingNumber = value;
+                    OnPropertyChange(nameof(BuildingNumber));
+                }
+            }
+        }
 
-        public string? Email { get; set; }
+        private string? apartmentNumber;
+        public string? ApartmentNumber
+        {
+            get => apartmentNumber;
+            set
+            {
+                if (apartmentNumber != value)
+                {
+                    apartmentNumber = value;
+                    OnPropertyChange(nameof(ApartmentNumber));
+                }
+            }
+        }
 
-        public string? AccountNumber {  get; set; } 
+        private string city;
+        public  string City
+        {
+            get => city;
+            set
+            {
+                if (city != value)
+                {
+                    city = value;
+                    OnPropertyChange(nameof(City));
+                }
+            }
+        }
 
-        
+        private string? phoneNumber;
+        public string? PhoneNumber
+        {
+            get => phoneNumber;
+            set
+            {
+                if (phoneNumber != value)
+                {
+                    phoneNumber = value;
+                    OnPropertyChange(nameof(PhoneNumber));
+                }
+            }
+        }
 
+        private string? email;
+        public string? Email
+        {
+            get => email;
+            set
+            {
+                if (email != value)
+                {
+                    email = value;
+                    OnPropertyChange(nameof(Email));
+                }
+            }
+        }
+
+        private string? accountNumber;
+        public string? AccountNumber
+        {
+            get => accountNumber;
+            set
+            {
+                if (accountNumber != value)
+                {
+                    accountNumber = value;
+                    OnPropertyChange(nameof(AccountNumber));
+                }
+            }
+        }
+
+        public Subject(string nip, string name, bool isIssuer, string postalCode, string street, string buildingNumber, string city)
+        {
+            Nip = nip;
+            Name = name;
+            IsIssuer = isIssuer;
+            PostalCode = postalCode;
+            Street = street;
+            BuildingNumber = buildingNumber;
+            City = city;
+        }
         public Subject(string nip, string name, bool isIssuer, string postalCode, string street, string buildingNumber, string apartmentNumber, string city)
         {
             Nip = nip;
