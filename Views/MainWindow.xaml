@@ -1,0 +1,41 @@
+﻿<Window x:Class="InvoiceRegister.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:InvoiceRegister"
+        mc:Ignorable="d"
+        Title="Fakturomat" Height="450" Width="800">
+    <DockPanel>
+        <Menu DockPanel.Dock="Top" >
+            <MenuItem Header="Dodaj">
+                <MenuItem Header="Nowa"/>
+                <MenuItem Header="Import">
+                    <MenuItem Header="PDF" />
+                </MenuItem>
+            </MenuItem>
+            <MenuItem Header="Eksport rejestru">
+                <MenuItem Header="CSV"/>
+                <MenuItem Header="XLSX"/>
+            </MenuItem> 
+            <MenuItem Header="Dane Sprzedawcy" />
+            <MenuItem Header="Opcje"/>
+        </Menu>
+        <StackPanel DockPanel.Dock="Bottom">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                
+                <Label  Content="Wyszukaj po numerze faktury, nipie lub nazwie:" />
+                <TextBox Grid.Column="1" VerticalContentAlignment="Center" MaxHeight="150"/>
+            </Grid>
+            <Separator/>
+            <ListView >
+                
+            </ListView>
+            
+        </StackPanel>
+    </DockPanel>
+</Window>
