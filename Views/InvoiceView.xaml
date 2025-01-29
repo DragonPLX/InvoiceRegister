@@ -4,9 +4,181 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:InvoiceRegister.Views"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
-        Title="InvoiceView" Height="750" Width="500">
+        Title="Faktura" Height="700" Width="670">
     <Grid>
-        
+        <DockPanel>
+            <StackPanel DockPanel.Dock="Top">
+                <TextBlock Margin="5" Text="Numer faktury" />
+                <TextBox Margin="5" x:Name="InvoiceNumber" />
+                <StackPanel Margin="5" HorizontalAlignment="Center" Orientation="Horizontal">
+                    <RadioButton x:Name="SaleButton" Content="Sprzedaż"   />
+                    <RadioButton Margin="10,0" x:Name="PurchaseButton" Content="Zakup"  />
+                </StackPanel>
+            
+                <StackPanel Margin="5,0" Orientation="Horizontal" >
+                    <TextBlock  VerticalAlignment="Center" Text="Data wystawienia:" />
+                    <DatePicker Margin="2.5" SelectedDate="{x:Static sys:DateTime.Today}"  />
+                    <TextBlock Margin="10,0,0,0" VerticalAlignment="Center" Text="Data wykonania:" />
+                    <DatePicker Margin="2.5" />
+                    <TextBlock Margin="10,0,0,0" VerticalAlignment="Center" Text="Data płatności VAT:" />
+                    <DatePicker Margin="2.5" />
+                </StackPanel>
+            
+                <StackPanel Margin="5,5" Orientation="Horizontal">
+                    <TextBlock VerticalAlignment="Center" Text="Rodzaj:"/>
+                    <ComboBox Width="75" Margin="10,0">
+                        <ComboBoxItem Content="Faktura" IsSelected="True"/>
+                        <ComboBoxItem Content="Korekta"/>
+                    </ComboBox>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="5,2.5">
+                    <TextBlock VerticalAlignment="Center" Text="Forma:"/>
+                    <ComboBox Margin="10,0,20,0" MinWidth="100" x:Name="PaymentComboBox" SelectedValuePath="Tag">
+                        <ComboBoxItem Content="Gotówka" Tag="Cash"/>
+                        <ComboBoxItem Content="Karta" Tag="Card"/>
+                        <ComboBoxItem Content="Przelew" Tag="Transfer"/>
+                        <ComboBoxItem Content="Przedpłata" Tag="Prepayment"/>
+                    </ComboBox>
+                    <TextBlock VerticalAlignment="Center" Text="Status:"/>
+                    <ComboBox Margin="10,0" MinWidth="100" x:Name="StatusComboBox" SelectedValuePath="Tag">
+                        <ComboBox.Style>
+                            <Style TargetType="{x:Type ComboBox}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=SelectedValue, ElementName=PaymentComboBox}" Value="Cash">
+                                        <Setter Property="SelectedValue" Value="Paied"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=SelectedValue, ElementName=PaymentComboBox}" Value="Card">
+                                        <Setter Property="SelectedValue" Value="Paied"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=SelectedValue, ElementName=PaymentComboBox}" Value="Transfer">
+                                        <Setter Property="SelectedValue" Value="NotPaied"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=SelectedValue, ElementName=PaymentComboBox}" Value="Prepayment">
+                                        <Setter Property="SelectedValue" Value="Paied"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ComboBox.Style>
+                        <ComboBoxItem Content="Niezapłacona" Tag="NotPaied" IsSelected="True"/>
+                        <ComboBoxItem Content="Zapłacona" Tag="Paied"/>
+                    </ComboBox>
+                    <TextBlock Margin="20,0,10,0" VerticalAlignment="Center" Text="Data płatności:"/>
+                    <DatePicker  SelectedDate="{x:Static sys:DateTime.Today}"/>
+                </StackPanel>
+            
+            
+                <ContentControl>
+                    <ContentControl.Style>
+                        <Style TargetType="{x:Type ContentControl}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=SaleButton, Path=IsChecked}" Value="True" >
+                                    <Setter Property="Content" Value="Kupujący"/>
+                                    <Setter Property="Margin" Value="5,2,0,0"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding ElementName=PurchaseButton, Path=IsChecked}" Value="True" >
+                                    <Setter Property="Content" Value="Sprzedający"/>
+                                    <Setter Property="Margin" Value="5,2,0,0"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ContentControl.Style>
+                </ContentControl>
+
+                <Border BorderBrush="Gray"  BorderThickness="0.5" CornerRadius="5" Margin="5,5,5,0">
+                    <StackPanel Margin="5">
+                        <StackPanel Margin="0,0,0,2.5" Orientation="Horizontal">
+                            <TextBlock VerticalAlignment="Center">
+                                <Run Text="NIP:" />
+                                <Run Text="*" Foreground="Red" FontWeight="Bold" />
+                            </TextBlock>
+                            <ComboBox x:Name="Nip" MinWidth="100" Margin="10,5" IsEditable="True" IsTextSearchEnabled="True" />
+                            <Button Height="25" Content="Pobierz dane z GUS" />
+                        </StackPanel>
+                        <Grid Margin="0,2.5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock VerticalAlignment="Center">
+                                 <Run Text="Nazwa:" />
+                                 <Run Text="*" Foreground="Red" FontWeight="Bold" />
+                            </TextBlock>
+                            <TextBox Grid.Column="1" Margin="10,0" VerticalAlignment="Center"  x:Name="Name" />
+                        </Grid>
+
+                        <StackPanel Margin="0,2.5" Orientation="Horizontal">
+                            <TextBlock>
+                                <Run Text="ul." />
+                                <Run Text="*" Foreground="Red" FontWeight="Bold" />
+                            </TextBlock>
+                            <TextBox Margin="10,0" MinWidth="100" x:Name="Street" />
+                            <TextBlock>
+                                <Run Text="Nr budynku:" />
+                                <Run Text="*" Foreground="Red" FontWeight="Bold" />
+                            </TextBlock>
+                            <TextBox Margin="10,0" x:Name="BuildingNumber" Width="25" />
+                            <TextBlock Text="Nr lokalu:" />
+                            <TextBox Margin="10,0" x:Name="ApartmentNumber" Width="25" />
+                        </StackPanel>
+                        <StackPanel Margin="0,2.5" Orientation="Horizontal">
+                            <TextBlock>
+                                <Run Text="Kod pocztowy:" />
+                                <Run Text="*" Foreground="Red" FontWeight="Bold" />
+                            </TextBlock>
+                            <TextBox Margin="10,0" x:Name="PostalCode" Width="37" />
+                            <TextBlock>
+                                <Run Text="Miejscowość:" />
+                                <Run Text="*" Foreground="Red" FontWeight="Bold" />
+                            </TextBlock>
+                            <TextBox Margin="10,0" x:Name="City" MinWidth="162" />
+                        </StackPanel>
+                        <Grid Margin="0,2.5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="50" />
+                                <ColumnDefinition Width="200"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock VerticalAlignment="Center" Text="Telefon:" />
+                            <TextBox HorizontalAlignment="Left" Grid.Column="1" Margin="10,0,0,2.5" Width="75" x:Name="PhoneNumber"  />
+                            <TextBlock VerticalAlignment="Center" Grid.Row="1" Text="Email:" />
+                            <TextBox HorizontalAlignment="Left" Grid.Row="1" Grid.Column="1" Margin="10,2.5,0,2.5" Width="100" x:Name="Email"  />
+                            <TextBlock VerticalAlignment="Center" Grid.Row="2" Text="Nr konta:" />
+                            <TextBox HorizontalAlignment="Left" Grid.Row="2" Grid.Column="2" Margin="10,2.5,0,0" Width="150" x:Name="AccountNumber" />
+                        </Grid>
+                    </StackPanel>
+                </Border>
+                <TextBlock Margin="10,5,10,5" Text="Usługi/Produkty"/>
+                <DataGrid AutoGenerateColumns="False" Height="200" MaxHeight="200">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Width="*" Header="Nazwa"/>
+                        <DataGridTextColumn Width="auto" Header="J.m"/>
+                        <DataGridTextColumn Width="*" Header="Ilość"/>
+                        <DataGridTextColumn Width="*" Header="Cena jedn."/>
+                        <DataGridTextColumn Width="*" Header="Rabat"/>
+                        <DataGridTextColumn Width="*" Header="Cena netto"/>
+                        <DataGridTextColumn Width="*" Header="Stawka VAT"/>
+                        <DataGridTextColumn Width="*" Header="Kwota VAT"/>
+                        <DataGridTextColumn Width="*" Header="Cena Brutto"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+                <DockPanel>
+                    <Button Margin="5,0" DockPanel.Dock="Left"  MinWidth="40" Content="&lt;" />
+                    <Button Margin="5,0" DockPanel.Dock="Right" HorizontalAlignment="Right" MinWidth="40" Content="&gt;"/>
+                    <Label HorizontalAlignment="Center" HorizontalContentAlignment="Center" Content="1"/>
+                </DockPanel>
+            </StackPanel>
+
+            <DockPanel DockPanel.Dock="Bottom">
+                <Button DockPanel.Dock="Left" MinWidth="100" Padding="5" Margin="10,0" Height="30" Content="Zapisz i zamknij"/>
+                <Button DockPanel.Dock="Left" MinWidth="100" Padding="5" Height="30" Content="Zapisz"/>
+                <Button DockPanel.Dock="Right" MinWidth="100" Padding="5" Margin="10,0" HorizontalAlignment="Right" Height="30" Width="50" Content="Anuluj"/>
+            </DockPanel>
+        </DockPanel>
     </Grid>
 </Window>

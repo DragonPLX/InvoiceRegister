@@ -11,7 +11,7 @@ namespace InvoiceRegister.Models
     {
 
         private string nip;
-        public  string Nip
+        public  string NIP
         {
             get => nip;
             set
@@ -19,7 +19,7 @@ namespace InvoiceRegister.Models
                 if (nip != value)
                 {
                     nip = value;
-                    OnPropertyChange(nameof(Nip));
+                    OnPropertyChange(nameof(NIP));
                 }
             }
         }
@@ -166,7 +166,7 @@ namespace InvoiceRegister.Models
 
         public Subject(string nip, string name, bool isIssuer, string postalCode, string street, string buildingNumber, string city)
         {
-            Nip = nip;
+            NIP = nip;
             Name = name;
             IsIssuer = isIssuer;
             PostalCode = postalCode;
@@ -176,7 +176,7 @@ namespace InvoiceRegister.Models
         }
         public Subject(string nip, string name, bool isIssuer, string postalCode, string street, string buildingNumber, string apartmentNumber, string city)
         {
-            Nip = nip;
+            NIP = nip;
             Name = name;
             IsIssuer = isIssuer;
             PostalCode = postalCode;
@@ -189,7 +189,7 @@ namespace InvoiceRegister.Models
         public Subject(string nip, string name, bool isIssuer, string postalCode, string street, string buildingNumber,
             string apartmentNumber, string city, string? phoneNumber, string? email, string? accountNumber)
         {
-            Nip = nip;
+            NIP = nip;
             Name = name;
             IsIssuer = isIssuer;
             PostalCode = postalCode;

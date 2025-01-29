@@ -8,9 +8,9 @@ namespace InvoiceRegister.Models
 {
     public enum PaymentTypeEnum
     {
-        Gotowka,
-        Karta,
-        Przelew,
-        Przedplata
+        Cash,
+        Card,
+        Transfer,
+        Prepayment
     }
 }

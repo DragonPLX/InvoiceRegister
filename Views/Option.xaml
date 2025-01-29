@@ -5,8 +5,18 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:InvoiceRegister.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
-    </Grid>
+             Visibility="Collapsed">
+    <Border CornerRadius="10" Padding="15" BorderBrush="Black" BorderThickness="2" Background="White" Height="300" Width="400">
+        <DockPanel>
+            <StackPanel DockPanel.Dock="Top" Orientation="Vertical">
+                <Label Content="Liczba dni ostrzeżenia do terminu płatności:"/>
+                <TextBox x:Name="DayNumber" Text="{Binding Path=DayToDeadLineOption, Mode=OneWay}" />
+            </StackPanel>
+            <StackPanel DockPanel.Dock="Bottom" MaxHeight="20" VerticalAlignment="Bottom" HorizontalAlignment="Left" Orientation="Horizontal">
+                <Button Content="Zapisz i zamknij" Command="{Binding Path=SaveOptionCommand}" CommandParameter="SaveAndClose" />
+                <Button Content="Zapisz" Command="{Binding Path=SaveOptionCommand}" CommandParameter="Save"  />
+                <Button Content="Anuluj" Command="{Binding Path=CancelOptionCommand}" />
+            </StackPanel>
+        </DockPanel>
+    </Border>
 </UserControl>

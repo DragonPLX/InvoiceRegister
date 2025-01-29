@@ -1,0 +1,51 @@
+﻿using InvoiceRegister.ViewModels;
+using InvoiceRegister.Views;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+
+namespace InvoiceRegister.Command
+{
+    public class SaveOptionCommand : BaseCommand
+    {
+        private object element;
+        public SaveOptionCommand(object element)
+        {
+            this.element = element;
+        }
+        public override void Execute(object? parameter)
+        {
+            if(element is Option option && parameter != null) { 
+                int dayNumber;
+                
+                if (parameter.ToString() == "Save")
+                {
+                    if (int.TryParse(option.DayNumber.Text.Trim(), out dayNumber))
+                    {
+                        InvoiceViewModel.Instance.DayToDeadLine = dayNumber;
+                        InvoiceViewModel.Instance.InvoicesView.Refresh();
+                    }
+                    else
+                        MessageBox.Show("Nieprawidłowy typ danych", "Wprowadzona wartość nie jest liczbą!", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                else if(parameter.ToString() == "SaveAndClose" )
+                {
+                    if (int.TryParse(option.DayNumber.Text.Trim(), out dayNumber))
+                    {
+                        InvoiceViewModel.Instance.DayToDeadLine = dayNumber;
+                        InvoiceViewModel.Instance.InvoicesView.Refresh();
+                        option.Visibility = Visibility.Collapsed;
+                    }     
+                    else
+                        MessageBox.Show("Nieprawidłowy typ danych", "Wprowadzona wartość nie jest liczbą!", MessageBoxButton.OK, MessageBoxImage.Error);
+    
+                }
+            }
+
+        }
+    }
+}

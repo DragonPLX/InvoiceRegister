@@ -9,13 +9,7 @@ namespace InvoiceRegister.Models
 {
     public class ProductOrService : BaseNotifyPropertyChange
     {
-        public string NameOfTheProductOrService { get; 
-            set 
-            { 
-                NameOfTheProductOrService = value; 
-                OnPropertyChange(nameof(NameOfTheProductOrService));
-            } 
-        }
+        public string NameOfTheProductOrService { get; set {  NameOfTheProductOrService = value; OnPropertyChange(nameof(NameOfTheProductOrService)); } }
         public string Unit { get; set { Unit = value; OnPropertyChange(nameof(Unit)); } }
         public int CountOfProductsOrServices { get; set { CountOfProductsOrServices = value; CountValueProductsOrServices(); } }
 

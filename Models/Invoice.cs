@@ -17,6 +17,14 @@ namespace InvoiceRegister.Models
         public InvoiceTypeEnum InvoiceType
         {
             get => invoiceType;
+            set
+            {
+                if (invoiceType != value) 
+                {
+                    invoiceType = value;
+                    OnPropertyChange(nameof(invoiceType));
+                }
+            }
         }
 
         private DateTime dateOfIssue;
@@ -223,24 +231,26 @@ namespace InvoiceRegister.Models
 
         
 
-        public Invoice(InvoiceTypeEnum invoiceType, DateTime dateOfIssue, Subject purchaser, Subject issuer, DateTime dateOfThePerformance, PaymentTypeEnum payment, bool status)
+        public Invoice(InvoiceTypeEnum invoiceType, DateTime dateOfIssue, Subject purchaser, Subject issuer, DocumentTypeEnum documentTypeEnum, DateTime dateOfThePerformance, PaymentTypeEnum payment, bool status)
         {
-            this.invoiceType = invoiceType;
+            InvoiceType = invoiceType;
             DateOfIssue = dateOfIssue;
             Purchaser = purchaser;
             Issuer = issuer;
+            DocumentType = documentTypeEnum;
             DateOfThePerformance = dateOfThePerformance;
             Payment = payment;
             Status = status;
             ProductsOrServices.CollectionChanged += ProductsOrServices_CollectionChanged;
         }
 
-        public Invoice(InvoiceTypeEnum invoiceType, DateTime dateOfIssue, Subject purchaser, Subject issuer, DateTime dateOfThePerformance, PaymentTypeEnum payment, bool status, DateTime dateOfPayment)
+        public Invoice(InvoiceTypeEnum invoiceType, DateTime dateOfIssue, Subject purchaser, Subject issuer, DocumentTypeEnum documentTypeEnum, DateTime dateOfThePerformance, PaymentTypeEnum payment, bool status, DateTime dateOfPayment)
         {
-            this.invoiceType = invoiceType;
+            InvoiceType = invoiceType;
             DateOfIssue = dateOfIssue;
             Purchaser = purchaser;
             Issuer = issuer;
+            DocumentType = documentTypeEnum;
             DateOfThePerformance = dateOfThePerformance;
             Payment = payment;
             Status = status;

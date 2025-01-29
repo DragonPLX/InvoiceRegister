@@ -1,4 +1,5 @@
 ﻿using InvoiceRegister.ViewModels;
+using System.Diagnostics;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -19,8 +20,11 @@ namespace InvoiceRegister
     {
         public MainWindow()
         {
+            
             InitializeComponent();
-            DataContext = new MainWindowViewModel();
+            DataContext = new MainWindowViewModel(this);
         }
+
+
     }
 }
