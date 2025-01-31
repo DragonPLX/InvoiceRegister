@@ -26,8 +26,8 @@ namespace InvoiceRegister.Command
                 {
                     if (int.TryParse(option.DayNumber.Text.Trim(), out dayNumber))
                     {
-                        InvoiceViewModel.Instance.DayToDeadLine = dayNumber;
-                        InvoiceViewModel.Instance.InvoicesView.Refresh();
+                        MainWindowViewModel.Instance.DayToDeadLine = dayNumber;
+                        MainWindowViewModel.Instance.InvoicesView.Refresh();
                     }
                     else
                         MessageBox.Show("Nieprawidłowy typ danych", "Wprowadzona wartość nie jest liczbą!", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -36,8 +36,8 @@ namespace InvoiceRegister.Command
                 {
                     if (int.TryParse(option.DayNumber.Text.Trim(), out dayNumber))
                     {
-                        InvoiceViewModel.Instance.DayToDeadLine = dayNumber;
-                        InvoiceViewModel.Instance.InvoicesView.Refresh();
+                        MainWindowViewModel.Instance.DayToDeadLine = dayNumber;
+                        MainWindowViewModel.Instance.InvoicesView.Refresh();
                         option.Visibility = Visibility.Collapsed;
                     }     
                     else

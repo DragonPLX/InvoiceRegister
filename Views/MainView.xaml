@@ -59,7 +59,7 @@
             <RadioButton Content="Zakup" Command="{Binding Path=PurchaseCommand}"/>
         </StackPanel>
 
-        <DataGrid x:Name="InvoicesDataGrid" Grid.ColumnSpan="2" ItemsSource="{Binding Path=InvoiceViewModel.InvoicesView}" AutoGenerateColumns="False" IsReadOnly="True">
+        <DataGrid x:Name="InvoicesDataGrid" Grid.ColumnSpan="2" ItemsSource="{Binding Path=InvoicesView}" AutoGenerateColumns="False" IsReadOnly="True">
 
             <DataGrid.Columns>
                 <DataGridTextColumn Width="*" Header="Nazwa klienta" Binding="{Binding Path=., Converter={StaticResource InvoiceDynamicClientColumnConverter} , ConverterParameter=Name}"/>

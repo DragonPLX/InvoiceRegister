@@ -18,12 +18,12 @@ namespace InvoiceRegister.ViewModels
         
         public int DayToDeadLineOption
         {
-            get => InvoiceViewModel.Instance.DayToDeadLine;
+            get => MainWindowViewModel.Instance.DayToDeadLine;
             set
             {
-                if (InvoiceViewModel.Instance.DayToDeadLine != value)
+                if (MainWindowViewModel.Instance.DayToDeadLine != value)
                 {
-                    InvoiceViewModel.Instance.DayToDeadLine = value;
+                    MainWindowViewModel.Instance.DayToDeadLine = value;
                     OnPropertyChange(nameof(DayToDeadLineOption));
                 }
             }

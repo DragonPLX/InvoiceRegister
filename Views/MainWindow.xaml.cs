@@ -22,7 +22,9 @@ namespace InvoiceRegister
         {
             
             InitializeComponent();
-            DataContext = new MainWindowViewModel(this);
+            MainWindowViewModel.Instance.MainWindow = this;
+            DataContext = MainWindowViewModel.Instance;
+            
         }
 
 

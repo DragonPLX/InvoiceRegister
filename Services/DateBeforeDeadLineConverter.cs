@@ -15,7 +15,7 @@ namespace InvoiceRegister.Services
         {
             if (value is DateTime date)
             {
-                if (date - DateTime.Today <= TimeSpan.FromDays(InvoiceViewModel.Instance.DayToDeadLine)  )
+                if (date - DateTime.Today <= TimeSpan.FromDays(MainWindowViewModel.Instance.DayToDeadLine)  )
                     return true;
                 else
                     return false;

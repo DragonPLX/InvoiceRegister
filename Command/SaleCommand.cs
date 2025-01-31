@@ -18,9 +18,9 @@ namespace InvoiceRegister.Command
         }
         public override void Execute(object? parameter)
         {
-            InvoiceViewModel.Instance.InvoiceTypeView = Models.InvoiceTypeEnum.Sale;
+            MainWindowViewModel.Instance.InvoiceTypeView = Models.InvoiceTypeEnum.Sale;
             userControl.Seacher.Text = "Wyszukaj (Nazwa, NIP, Numer faktury, Kwota)";
-            InvoiceViewModel.Instance.InvoiceTypeFilter();
+            MainWindowViewModel.Instance.InvoiceTypeFilter();
             
         }
     }

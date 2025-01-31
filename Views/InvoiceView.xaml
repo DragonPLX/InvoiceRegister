@@ -167,7 +167,7 @@
                         <DataGridTextColumn Width="*" Header="Cena Brutto"/>
                     </DataGrid.Columns>
                 </DataGrid>
-                <DockPanel>
+                <DockPanel Margin="0,2,0,0">
                     <Button Margin="5,0" DockPanel.Dock="Left"  MinWidth="40" Content="&lt;" />
                     <Button Margin="5,0" DockPanel.Dock="Right" HorizontalAlignment="Right" MinWidth="40" Content="&gt;"/>
                     <Label HorizontalAlignment="Center" HorizontalContentAlignment="Center" Content="1"/>

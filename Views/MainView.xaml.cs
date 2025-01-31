@@ -52,7 +52,7 @@ namespace InvoiceRegister.Views
 
         private void Seacher_TextChanged(object sender, TextChangedEventArgs e)
         {
-            InvoiceViewModel.Instance.SearchFilter(Seacher.Text);
+            MainWindowViewModel.Instance.SearchFilter(Seacher.Text);
         }
     }
 }
