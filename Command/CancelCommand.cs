@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace InvoiceRegister.Command
@@ -20,6 +21,11 @@ namespace InvoiceRegister.Command
             {
                 control.Visibility = System.Windows.Visibility.Collapsed;
             }
+            if (element is Window window) 
+            {
+                window.Close();
+            }
+
         }
     }
 }

@@ -19,9 +19,9 @@ namespace InvoiceRegister.Views
     /// <summary>
     /// Interaction logic for Option.xaml
     /// </summary>
-    public partial class Option : UserControl
+    public partial class OptionView : UserControl
     {
-        public Option()
+        public OptionView()
         {
             InitializeComponent();
             DataContext = new OptionViewModel(this);

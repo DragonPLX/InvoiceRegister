@@ -1,5 +1,6 @@
 ﻿using InvoiceRegister.Command;
 using InvoiceRegister.Services;
+using InvoiceRegister.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,10 +29,10 @@ namespace InvoiceRegister.ViewModels
                 }
             }
         }
-        public OptionViewModel(UserControl userControl) 
+        public OptionViewModel(OptionView userControl) 
         {
             CancelOptionCommand = new CancelCommand(userControl);
-            SaveOptionCommand = new SaveOptionCommand(userControl);
+            SaveOptionCommand = new SaveCommand(userControl);
         }
     }
 }

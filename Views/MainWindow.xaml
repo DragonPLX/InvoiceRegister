@@ -26,7 +26,7 @@
         <Grid DockPanel.Dock="Bottom">
                
             <views:MainView x:Name="Mainview"/>
-            <views:Option x:Name="Options"/>
+            <views:OptionView x:Name="Options"/>
 
         </Grid>
     </DockPanel>

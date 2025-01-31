@@ -10,16 +10,16 @@ using System.Windows.Controls;
 
 namespace InvoiceRegister.Command
 {
-    public class SaveOptionCommand : BaseCommand
+    public class SaveCommand : BaseCommand
     {
         private object element;
-        public SaveOptionCommand(object element)
+        public SaveCommand(object element)
         {
             this.element = element;
         }
         public override void Execute(object? parameter)
         {
-            if(element is Option option && parameter != null) { 
+            if(element is OptionView option && parameter != null) { 
                 int dayNumber;
                 
                 if (parameter.ToString() == "Save")
