@@ -9,31 +9,31 @@ namespace InvoiceRegister.Models
 {
     public class ProductOrService : BaseNotifyPropertyChange
     {
-        public string NameOfTheProductOrService { get; set {  NameOfTheProductOrService = value; OnPropertyChange(nameof(NameOfTheProductOrService)); } }
+        public string Name { get; set {  Name = value; OnPropertyChange(nameof(Name)); } }
         public string Unit { get; set { Unit = value; OnPropertyChange(nameof(Unit)); } }
-        public int CountOfProductsOrServices { get; set { CountOfProductsOrServices = value; CountValueProductsOrServices(); } }
+        public int Count { get; set { Count = value; CountValueProductsOrServices(); } }
 
-        public int UnitPriceOfProductOrService { get; set { UnitPriceOfProductOrService = value; CountValueProductsOrServices(); } }
+        public int UnitPrice { get; set { UnitPrice = value; CountValueProductsOrServices(); } }
 
         public int DiscountOfPrice { get; set { DiscountOfPrice = value; CountValueProductsOrServices(); } }
 
         public bool IsPercentDiscount { get; set { IsPercentDiscount = value; CountValueProductsOrServices(); } }
 
-        public int NetValueOfProductsOrServices { get; private set; }
+        public int NetValue { get; private set; }
 
         public int TaxRate { get; set { TaxRate = value; CountValueProductsOrServices(); } }
 
 
         public int TaxValue { get; private set; }
 
-        public int GrossSumOfValueProductsOrServices { get; private set; }
+        public int GrossSum { get; private set; }
 
         public ProductOrService(string nameOfTheProductOrService, string unit, int countOfProductsOrServices, int unitPriceOfProductOrService, int discountsOfPrice, bool isPercentDiscount, int netValueOfProductsOrServices, int taxRate)
         {
-            NameOfTheProductOrService = nameOfTheProductOrService;
+            Name = nameOfTheProductOrService;
             Unit = unit;
-            CountOfProductsOrServices = countOfProductsOrServices;
-            UnitPriceOfProductOrService = unitPriceOfProductOrService;
+            Count = countOfProductsOrServices;
+            UnitPrice = unitPriceOfProductOrService;
             DiscountOfPrice = discountsOfPrice;
             IsPercentDiscount = isPercentDiscount;
             TaxRate = taxRate;
@@ -45,19 +45,19 @@ namespace InvoiceRegister.Models
         private void CountValueProductsOrServices()
         {
             if (IsPercentDiscount) {
-                NetValueOfProductsOrServices = CountOfProductsOrServices * UnitPriceOfProductOrService * ((100 - DiscountOfPrice) / 100);
-                OnPropertyChange(nameof(NetValueOfProductsOrServices));
+                NetValue = Count * UnitPrice * ((100 - DiscountOfPrice) / 100);
+                OnPropertyChange(nameof(NetValue));
             }
             else 
             {
-                NetValueOfProductsOrServices = CountOfProductsOrServices * (UnitPriceOfProductOrService - DiscountOfPrice);
-                OnPropertyChange(nameof(NetValueOfProductsOrServices));
+                NetValue = Count * (UnitPrice - DiscountOfPrice);
+                OnPropertyChange(nameof(NetValue));
             }
 
-            TaxValue = NetValueOfProductsOrServices * TaxRate;
+            TaxValue = NetValue * TaxRate;
             OnPropertyChange(nameof(TaxValue));
-            GrossSumOfValueProductsOrServices = NetValueOfProductsOrServices + TaxValue;
-            OnPropertyChange(nameof(GrossSumOfValueProductsOrServices));
+            GrossSum = NetValue + TaxValue;
+            OnPropertyChange(nameof(GrossSum));
         }
 
     }

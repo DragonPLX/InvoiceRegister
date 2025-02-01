@@ -279,7 +279,7 @@ namespace InvoiceRegister.Models
         }
         private void ProductsOrServicesPropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
-            if(e.PropertyName == nameof(ProductOrService.NetValueOfProductsOrServices) || e.PropertyName == nameof(ProductOrService.TaxValue) || e.PropertyName == nameof(ProductOrService.GrossSumOfValueProductsOrServices))
+            if(e.PropertyName == nameof(ProductOrService.NetValue) || e.PropertyName == nameof(ProductOrService.TaxValue) || e.PropertyName == nameof(ProductOrService.GrossSum))
             {
                 CountTotalValue();
             }
@@ -292,9 +292,9 @@ namespace InvoiceRegister.Models
             TotalSumOfValueProductsOrServices = 0;
             foreach (var item in ProductsOrServices)
             {
-                TotalSumOfNetValueProductsOrServices += item.NetValueOfProductsOrServices;
+                TotalSumOfNetValueProductsOrServices += item.NetValue;
                 TotalSumOfTaxValue += item.TaxValue;
-                TotalSumOfValueProductsOrServices += item.GrossSumOfValueProductsOrServices;
+                TotalSumOfValueProductsOrServices += item.GrossSum;
             }
         }
     }
