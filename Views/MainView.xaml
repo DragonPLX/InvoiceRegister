@@ -14,53 +14,53 @@
         <services:DocumentTypeConverter x:Key="DocumentTypeConverter"/>
         <services:PaymentTypeConverter x:Key="PaymentTypeConverter"/>
     </UserControl.Resources>
-    <StackPanel>
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <TextBox x:Name="Seacher" Grid.Column="1" Margin="50,5" VerticalContentAlignment="Center" Height="30"
-                      Text="Wyszukaj (Nazwa, NIP, Numer faktury, Kwota)"
-                      GotFocus="Seacher_GotFocus" LostFocus="Seacher_LostFocus" TextChanged="Seacher_TextChanged">
-                <TextBox.Style>
-                    <Style TargetType="TextBox">
-                        <Setter Property="BorderBrush" Value="Gray"/>
-                        <Setter Property="BorderThickness" Value="1"/>
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="TextBox">
-                                    <Border 
-                            BorderBrush="{TemplateBinding BorderBrush}" 
-                            BorderThickness="{TemplateBinding BorderThickness}" 
-                            CornerRadius="5">
-                                        <ScrollViewer Margin="2" x:Name="PART_ContentHost"/>
-                                    </Border>
-                                    <ControlTemplate.Triggers>
-                                        <Trigger Property="IsMouseOver" Value="True">
-                                            <Setter TargetName="PART_ContentHost" Property="Background" Value="LightBlue"/>
-                                            <Setter Property="BorderBrush" Value="Blue"/>
-                                        </Trigger>
-                                        <Trigger Property="IsKeyboardFocusWithin" Value="True">
-                                            <Setter Property="BorderBrush" Value="DarkBlue"/>
-                                        </Trigger>
-                                    </ControlTemplate.Triggers>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
-                </TextBox.Style>
-            </TextBox>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBox x:Name="Seacher"  Margin="50,5" VerticalContentAlignment="Center" Height="30"
+                    Text="Wyszukaj (Nazwa, NIP, Numer faktury, Kwota)"
+                    GotFocus="Seacher_GotFocus" LostFocus="Seacher_LostFocus" TextChanged="Seacher_TextChanged">
+            <TextBox.Style>
+                <Style TargetType="TextBox">
+                    <Setter Property="BorderBrush" Value="Gray"/>
+                    <Setter Property="BorderThickness" Value="1"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="TextBox">
+                                <Border 
+                        BorderBrush="{TemplateBinding BorderBrush}" 
+                        BorderThickness="{TemplateBinding BorderThickness}" 
+                        CornerRadius="5">
+                                    <ScrollViewer Margin="2" x:Name="PART_ContentHost"/>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter TargetName="PART_ContentHost" Property="Background" Value="LightBlue"/>
+                                        <Setter Property="BorderBrush" Value="Blue"/>
+                                    </Trigger>
+                                    <Trigger Property="IsKeyboardFocusWithin" Value="True">
+                                        <Setter Property="BorderBrush" Value="DarkBlue"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </TextBox.Style>
+        </TextBox>
 
-        </Grid>
-
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="5" >
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="5" >
             <RadioButton Content="Sprzedaż" Command="{Binding Path=SaleCommand}" Margin="10,0" IsChecked="True"/>
             <RadioButton Content="Zakup" Command="{Binding Path=PurchaseCommand}"/>
         </StackPanel>
 
-        <DataGrid x:Name="InvoicesDataGrid" Grid.ColumnSpan="2" ItemsSource="{Binding Path=InvoicesView}" AutoGenerateColumns="False" IsReadOnly="True">
-
+        <DataGrid Grid.Row="2" x:Name="InvoicesDataGrid" Grid.ColumnSpan="2" AlternationCount="2" AlternatingRowBackground="LightGray" ItemsSource="{Binding Path=InvoicesView}" AutoGenerateColumns="False" IsReadOnly="True" VerticalScrollBarVisibility="Auto">
             <DataGrid.Columns>
                 <DataGridTextColumn Width="*" Header="Nazwa klienta" Binding="{Binding Path=., Converter={StaticResource InvoiceDynamicClientColumnConverter} , ConverterParameter=Name}"/>
                 <DataGridTextColumn Width="*" Header="NIP" Binding="{Binding Path=., Converter={StaticResource InvoiceDynamicClientColumnConverter} ,ConverterParameter=NIP }"/>
@@ -68,29 +68,7 @@
                 <DataGridTextColumn Width="auto" Header="Rodzaj" Binding="{Binding Path=DocumentType , Converter={StaticResource DocumentTypeConverter}}"/>
                 <DataGridTextColumn Width="*" Header="Data wystawienia" Binding="{Binding Path=DateOfIssue, StringFormat=yyyy-MM-dd}"/>
                 <DataGridTextColumn Width="auto" Header="Data VAT" />
-                <DataGridTextColumn Width="*" Header="Data płatności" Binding="{Binding Path=DateOfPayment, StringFormat=yyyy-MM-dd}" >
-                    <!--<DataGridTextColumn.ElementStyle>
-                        <Style TargetType="{x:Type TextBlock}">
-                            <Style.Triggers>
-                                <MultiDataTrigger>
-
-                                </MultiDataTrigger>
-                                <MultiDataTrigger>
-                                    <MultiDataTrigger.Conditions>
-                                        <Condition Binding="{Binding Path=DateOfPayment, Converter={StaticResource DateBeforeDeadLineConverter}}" Value="true"/>
-                                        <Condition Binding="{Binding Path=Status}" Value="False"/>
-                                        <Condition Binding="{Binding Path=DateOfPayment, Converter={StaticResource DateAfterDeadlineConverter}}" Value="false"/>
-                                    </MultiDataTrigger.Conditions>
-                                    <MultiDataTrigger.Setters>
-                                        <Setter Property="Background" Value="Orange"/>
-                                        <Setter Property="ToolTip" Value="Data płatności zbliża się a faktura jest nierozliczona"/>
-                                    </MultiDataTrigger.Setters>
-                                </MultiDataTrigger>
-
-                            </Style.Triggers>
-                        </Style>
-                    </DataGridTextColumn.ElementStyle>-->
-                </DataGridTextColumn>
+                <DataGridTextColumn Width="*" Header="Data płatności" Binding="{Binding Path=DateOfPayment, StringFormat=yyyy-MM-dd}" />
                 <DataGridTextColumn Width="*" Header="Kwota" Binding="{Binding Path=TotalSumOfValueProductsOrServices}"/>
                 <DataGridTextColumn Width="auto" Header="Płatności" Binding="{Binding Path=Payment , Converter={StaticResource PaymentTypeConverter}}"/>
                 <DataGridTemplateColumn Width="*" Header="Status">
@@ -151,9 +129,6 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
-
-
         </DataGrid>
-
-    </StackPanel>
+    </Grid>
 </UserControl>

@@ -16,16 +16,30 @@ namespace InvoiceRegister.ViewModels
 {
     public class InvoiceViewModel : BaseNotifyPropertyChange
     {
-        private InvoiceView invoiceView;
+        private InvoiceWindow invoiceView;
 
-        public ICommand SaveInvoiceCommand { get; set; }
+        private Subject subject;
+        public Subject Subject
+        {
+            get => subject;
+            set
+            {
+                if (subject != null)
+                {
+                    subject = value;
+                    OnPropertyChange(nameof(subject));
+                }
+            }
+        }
+
+        public ICommand SaveInvoiceCommand { get; }
 
         public ICommand CancelInvoiceCommand { get; }
-        public InvoiceViewModel(InvoiceView invoiceView) 
+        public InvoiceViewModel(InvoiceWindow invoiceView) 
         {
             this.invoiceView = invoiceView;
             CancelInvoiceCommand = new CancelCommand(invoiceView);
-
+            SaveInvoiceCommand = new SaveCommand(invoiceView);
         }
     }
 }

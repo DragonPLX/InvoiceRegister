@@ -1,5 +1,4 @@
-﻿using InvoiceRegister.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,19 +10,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace InvoiceRegister.Views
 {
     /// <summary>
-    /// Interaction logic for InvoiceView.xaml
+    /// Interaction logic for SubjectView.xaml
     /// </summary>
-    public partial class InvoiceView : Window
+    public partial class SubjectView : UserControl
     {
-        public InvoiceView()
+        public SubjectView()
         {
             InitializeComponent();
-            DataContext = new InvoiceViewModel(this);
         }
     }
 }

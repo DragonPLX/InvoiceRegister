@@ -20,7 +20,7 @@
                 <MenuItem Header="CSV"/>
                 <MenuItem Header="XLSX"/>
             </MenuItem>
-            <MenuItem Header="Dane Podmiotu" />
+            <MenuItem Header="Dane Podmiotu" Command="{Binding Path=OwnSubjectCommand}" />
             <MenuItem Header="Opcje" Command="{Binding Path=OptionCommand}"/>
         </Menu>
         <Grid DockPanel.Dock="Bottom">

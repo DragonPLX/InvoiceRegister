@@ -22,6 +22,7 @@ namespace InvoiceRegister
         {
             
             InitializeComponent();
+            WindowStartupLocation = WindowStartupLocation.CenterScreen;
             MainWindowViewModel.Instance.MainWindow = this;
             DataContext = MainWindowViewModel.Instance;
             
