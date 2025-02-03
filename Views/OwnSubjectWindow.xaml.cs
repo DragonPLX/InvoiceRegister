@@ -24,8 +24,8 @@ namespace InvoiceRegister.Views
         public OwnSubjectWindow()
         {
             InitializeComponent();
-            OwnSubjectViewModel.Instance.CancelCommand = new CancelCommand(this);
-            DataContext = OwnSubjectViewModel.Instance;
+            
+            DataContext = new OwnSubjectViewModel(this);
 
         }
     }

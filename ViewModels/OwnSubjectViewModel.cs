@@ -1,7 +1,10 @@
 ﻿using InvoiceRegister.Command;
+using InvoiceRegister.Entities;
 using InvoiceRegister.Models;
 using InvoiceRegister.Services;
 using InvoiceRegister.Views;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,8 +16,7 @@ namespace InvoiceRegister.ViewModels
 {
     public class OwnSubjectViewModel : BaseNotifyPropertyChange
     {
-        public static OwnSubjectViewModel Instance { get; } = new();
-
+        
         private Subject subject;
         public Subject Subject
         {
@@ -27,10 +29,15 @@ namespace InvoiceRegister.ViewModels
         }
 
         public ICommand CancelCommand { get; set; }
-        private OwnSubjectViewModel() 
+
+        public ICommand SaveOwnCommand { get; set; }
+        public OwnSubjectViewModel(OwnSubjectWindow window) 
         {
-            subject = new Subject("1234567890", "Kubuś Puchatek Sp z.o.o", true, "05-400", "Krzysiowa", "8a", "Warszawa");
+            subject = App.OwnSubject;
+            CancelCommand = new CancelCommand(window);
+            SaveOwnCommand = new SaveCommand(window, new SaveOwnSubjectCommand());
             
         }
+
     }
 }

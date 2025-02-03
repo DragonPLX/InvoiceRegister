@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
 
-namespace InvoiceRegister.Services
+namespace InvoiceRegister.Services.Converters
 {
     public class InvoiceClientConverter : IValueConverter
     {
@@ -20,19 +20,20 @@ namespace InvoiceRegister.Services
                     return parm switch
                     {
                         "Name" => invoice.Purchaser.Name,
-                        "NIP" => invoice.Purchaser.NIP,
+                        "NIP" => invoice.Purchaser.Nip,
                         _ => throw new Exception()
                     };
 
-                } else if (invoice.InvoiceType == InvoiceTypeEnum.Purchase)
+                }
+                else if (invoice.InvoiceType == InvoiceTypeEnum.Purchase)
                 {
                     return parm switch
                     {
                         "Name" => invoice.Issuer.Name,
-                        "NIP" => invoice.Issuer.NIP,
+                        "NIP" => invoice.Issuer.Nip,
                         _ => throw new Exception()
                     };
-                } 
+                }
             }
 
             throw new Exception();

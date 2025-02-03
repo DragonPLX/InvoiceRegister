@@ -41,17 +41,17 @@ namespace InvoiceRegister.Models
             }
         }
 
-        private DateTime? dateOfVAT;
+        private DateTime? dateOfVat;
 
-        public DateTime? DateOfVAT
+        public DateTime? DateOfVat
         {
-            get => dateOfVAT;
+            get => dateOfVat;
             set
             {
-                if (dateOfVAT != value)
+                if (dateOfVat != value)
                 {
-                    dateOfVAT = value;
-                    OnPropertyChange(nameof(DateOfVAT));
+                    dateOfVat = value;
+                    OnPropertyChange(nameof(DateOfVat));
                 }
             }
         }
@@ -112,8 +112,8 @@ namespace InvoiceRegister.Models
             }
         }
 
-        private DateTime dateOfThePerformance;
-        public DateTime DateOfThePerformance
+        private DateTime? dateOfThePerformance;
+        public DateTime? DateOfThePerformance
         {
             get => dateOfThePerformance;
             set
@@ -132,22 +132,22 @@ namespace InvoiceRegister.Models
             get => productsOrServices;
         }
 
-        private int totalSumOfNetValueProductsOrServices;
-        public int TotalSumOfNetValueProductsOrServices
+        private float totalSumOfNetValue;
+        public float TotalSumOfNetValue
         {
-            get => totalSumOfNetValueProductsOrServices;
+            get => totalSumOfNetValue;
             set
             {
-                if (totalSumOfNetValueProductsOrServices != value)
+                if (totalSumOfNetValue != value)
                 {
-                    totalSumOfNetValueProductsOrServices = value;
-                    OnPropertyChange(nameof(TotalSumOfNetValueProductsOrServices));
+                    totalSumOfNetValue = value;
+                    OnPropertyChange(nameof(TotalSumOfNetValue));
                 }
             }
         }
 
-        private int totalSumOfTaxValue;
-        public int TotalSumOfTaxValue
+        private float totalSumOfTaxValue;
+        public float TotalSumOfTaxValue
         {
             get => totalSumOfTaxValue;
             set
@@ -160,16 +160,16 @@ namespace InvoiceRegister.Models
             }
         }
 
-        private int totalSumOfValueProductsOrServices;
-        public int TotalSumOfValueProductsOrServices
+        private float totalSumOfGrossValue;
+        public float TotalSumOfGrossValue
         {
-            get => totalSumOfValueProductsOrServices;
+            get => totalSumOfGrossValue;
             set
             {
-                if (totalSumOfValueProductsOrServices != value)
+                if (totalSumOfGrossValue != value)
                 {
-                    totalSumOfValueProductsOrServices = value;
-                    OnPropertyChange(nameof(TotalSumOfValueProductsOrServices));
+                    totalSumOfGrossValue = value;
+                    OnPropertyChange(nameof(TotalSumOfGrossValue));
                 }
             }
         }
@@ -214,6 +214,8 @@ namespace InvoiceRegister.Models
                 }
             }
         }
+
+ 
 
         private string? notes;
         public string? Notes
@@ -279,7 +281,7 @@ namespace InvoiceRegister.Models
         }
         private void ProductsOrServicesPropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
-            if(e.PropertyName == nameof(ProductOrService.NetValue) || e.PropertyName == nameof(ProductOrService.TaxValue) || e.PropertyName == nameof(ProductOrService.GrossSum))
+            if(e.PropertyName == nameof(ProductOrService.NetValue) || e.PropertyName == nameof(ProductOrService.TaxValue) || e.PropertyName == nameof(ProductOrService.GrossValue))
             {
                 CountTotalValue();
             }
@@ -287,14 +289,14 @@ namespace InvoiceRegister.Models
 
         public void CountTotalValue() 
         {
-            TotalSumOfNetValueProductsOrServices = 0;
+            TotalSumOfNetValue = 0;
             TotalSumOfTaxValue = 0;
-            TotalSumOfValueProductsOrServices = 0;
+            TotalSumOfGrossValue = 0;
             foreach (var item in ProductsOrServices)
             {
-                TotalSumOfNetValueProductsOrServices += item.NetValue;
+                TotalSumOfNetValue += item.NetValue;
                 TotalSumOfTaxValue += item.TaxValue;
-                TotalSumOfValueProductsOrServices += item.GrossSum;
+                TotalSumOfGrossValue += item.GrossValue;
             }
         }
     }

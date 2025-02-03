@@ -11,7 +11,7 @@ namespace InvoiceRegister.Models
     {
 
         private string nip;
-        public  string NIP
+        public  string Nip
         {
             get => nip;
             set
@@ -19,7 +19,7 @@ namespace InvoiceRegister.Models
                 if (nip != value)
                 {
                     nip = value;
-                    OnPropertyChange(nameof(NIP));
+                    OnPropertyChange(nameof(Nip));
                 }
             }
         }
@@ -38,16 +38,16 @@ namespace InvoiceRegister.Models
             }
         }
 
-        private bool isIssuer;
-        public bool IsIssuer
+        private bool isOwn;
+        public bool IsOwn
         {
-            get => isIssuer;
+            get => isOwn;
             set
             {
-                if (isIssuer != value)
+                if (isOwn != value)
                 {
-                    isIssuer = value;
-                    OnPropertyChange(nameof(IsIssuer));
+                    isOwn = value;
+                    OnPropertyChange(nameof(IsOwn));
                 }
             }
         }
@@ -166,9 +166,9 @@ namespace InvoiceRegister.Models
 
         public Subject(string nip, string name, bool isIssuer, string postalCode, string street, string buildingNumber, string city)
         {
-            NIP = nip;
+            Nip = nip;
             Name = name;
-            IsIssuer = isIssuer;
+            IsOwn = isIssuer;
             PostalCode = postalCode;
             Street = street;
             BuildingNumber = buildingNumber;
@@ -176,9 +176,9 @@ namespace InvoiceRegister.Models
         }
         public Subject(string nip, string name, bool isIssuer, string postalCode, string street, string buildingNumber, string apartmentNumber, string city)
         {
-            NIP = nip;
+            Nip = nip;
             Name = name;
-            IsIssuer = isIssuer;
+            IsOwn = isIssuer;
             PostalCode = postalCode;
             Street = street;
             BuildingNumber = buildingNumber;
@@ -189,9 +189,9 @@ namespace InvoiceRegister.Models
         public Subject(string nip, string name, bool isIssuer, string postalCode, string street, string buildingNumber,
             string apartmentNumber, string city, string? phoneNumber, string? email, string? accountNumber)
         {
-            NIP = nip;
+            Nip = nip;
             Name = name;
-            IsIssuer = isIssuer;
+            IsOwn = isIssuer;
             PostalCode = postalCode;
             Street = street;
             BuildingNumber = buildingNumber;

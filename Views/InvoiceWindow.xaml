@@ -6,12 +6,18 @@
         xmlns:local="clr-namespace:InvoiceRegister.Views"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
-        Title="Faktura" Height="700" Width="670">
+        Title="Faktura" Height="750" Width="670">
     <Grid>
         <DockPanel>
             <StackPanel DockPanel.Dock="Top">
-                <TextBlock Margin="5" Text="Numer faktury" />
-                <TextBox Margin="5" x:Name="InvoiceNumber" />
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock  Margin="5" Text="Numer faktury:" />
+                    <TextBox Grid.Column="1" Margin="5" x:Name="InvoiceNumber" />
+                </Grid>
                 <StackPanel Margin="5" HorizontalAlignment="Center" Orientation="Horizontal">
                     <RadioButton x:Name="SaleButton" Content="Sprzedaż"   />
                     <RadioButton Margin="10,0" x:Name="PurchaseButton" Content="Zakup"  />
@@ -20,18 +26,19 @@
                 <StackPanel Margin="5,0" Orientation="Horizontal" >
                     <TextBlock  VerticalAlignment="Center" Text="Data wystawienia:" />
                     <DatePicker Margin="2.5" x:Name="DateOfIssue" SelectedDate="{x:Static sys:DateTime.Today}"  />
-                    <TextBlock Margin="10,0,0,0" VerticalAlignment="Center" Text="Data wykonania:" />
-                    <DatePicker Margin="2.5" />
+                    <TextBlock Margin="10,0,0,0" VerticalAlignment="Center" Text="Data sprzedaży:" />
+                    <DatePicker x:Name="DateOfThePerformance" Margin="2.5" />
                     <TextBlock Margin="10,0,0,0" VerticalAlignment="Center" Text="Data płatności VAT:" />
-                    <DatePicker Margin="2.5" />
+                    <DatePicker x:Name="DateOfVat" Margin="2.5" />
                 </StackPanel>
             
                 <StackPanel Margin="5,5" Orientation="Horizontal">
                     <TextBlock VerticalAlignment="Center" Text="Rodzaj:"/>
-                    <ComboBox Width="75" Margin="10,0">
-                        <ComboBoxItem Content="Faktura" IsSelected="True"/>
+                    <ComboBox x:Name="DocumentType" Width="75" Margin="10,0,20,0">
+                        <ComboBoxItem Content="Faktura"  IsSelected="True"/>
                         <ComboBoxItem Content="Korekta"/>
                     </ComboBox>
+                   
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="5,2.5">
                     <TextBlock VerticalAlignment="Center" Text="Forma:"/>
@@ -64,8 +71,9 @@
                         <ComboBoxItem Content="Niezapłacona" Tag="NotPaied" IsSelected="True"/>
                         <ComboBoxItem Content="Zapłacona" Tag="Paied"/>
                     </ComboBox>
+                    
                     <TextBlock Margin="20,0,10,0" VerticalAlignment="Center" Text="Data płatności:"/>
-                    <DatePicker  SelectedDate="{x:Static sys:DateTime.Today}"/>
+                    <DatePicker x:Name="DateOfPayment" />
                 </StackPanel>
             
             
@@ -87,10 +95,10 @@
                 </ContentControl>
 
                 <Border BorderBrush="Gray"  BorderThickness="0.5" CornerRadius="5" Margin="5,5,5,0">
-                    <local:SubjectView />
+                    <local:SubjectView x:Name="SubjectView"/>
                 </Border>
-                <TextBlock Margin="10,5,10,5" Text="Usługi/Produkty"/>
-                <DataGrid AutoGenerateColumns="False" Height="200" MaxHeight="200">
+                <TextBlock Margin="10,5,10,5" Text="Usługi/Produkty:"/>
+                <DataGrid AutoGenerateColumns="False" Height="150" MaxHeight="150">
                     <DataGrid.Columns>
                         <DataGridTextColumn Width="*" Header="Nazwa"/>
                         <DataGridTextColumn Width="auto" Header="J.m"/>
@@ -108,6 +116,32 @@
                     <Button Margin="5,0" DockPanel.Dock="Right" HorizontalAlignment="Right" MinWidth="40" Content="&gt;"/>
                     <Label HorizontalAlignment="Center" HorizontalContentAlignment="Center" Content="1"/>
                 </DockPanel>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Vertical" Margin="10,5">
+                        <TextBlock Text="Suma wartości netto:" HorizontalAlignment="Center"/>
+                        <TextBox x:Name="TotalSumOfNetValue"/>
+                    </StackPanel>
+                    <StackPanel Grid.Column="1" Orientation="Vertical" Margin="10,5">
+                        <TextBlock Text="Suma wartości Vat:" HorizontalAlignment="Center"/>
+                        <TextBox x:Name="TotalSumOfTaxValue"/>
+                    </StackPanel>
+                    <StackPanel Grid.Column="2" Orientation="Vertical" Margin="10,5">
+                        <TextBlock Text="Suma wartości brutto:" HorizontalAlignment="Center"/>
+                        <TextBox x:Name="TotalSumOfGrossValue"/>
+                    </StackPanel>
+
+
+                </Grid>
+                
+                <TextBlock Margin="10,10,0,0" Text="Uwagi:"/>
+                <TextBox Margin="10,0,10,10" MinHeight="50" x:Name="Notes"/>
+
             </StackPanel>
 
             <DockPanel DockPanel.Dock="Bottom">

@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace InvoiceRegister.Command
+namespace InvoiceRegister.Command.Interfaces
 {
     public interface ISaveCommand
     {
-        bool CanExcute(object element, object parametr);
-        void Execute(object element, object parametr);
+        bool CanSaveExcute(object element, object parameter);
+        void SaveExecute(object element, object parameter);
     }
 }

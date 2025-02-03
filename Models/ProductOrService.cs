@@ -13,20 +13,20 @@ namespace InvoiceRegister.Models
         public string Unit { get; set { Unit = value; OnPropertyChange(nameof(Unit)); } }
         public int Count { get; set { Count = value; CountValueProductsOrServices(); } }
 
-        public int UnitPrice { get; set { UnitPrice = value; CountValueProductsOrServices(); } }
+        public float UnitPrice { get; set { UnitPrice = value; CountValueProductsOrServices(); } }
 
         public int DiscountOfPrice { get; set { DiscountOfPrice = value; CountValueProductsOrServices(); } }
 
         public bool IsPercentDiscount { get; set { IsPercentDiscount = value; CountValueProductsOrServices(); } }
 
-        public int NetValue { get; private set; }
+        public float NetValue { get; private set; }
 
-        public int TaxRate { get; set { TaxRate = value; CountValueProductsOrServices(); } }
+        public float TaxRate { get; set { TaxRate = value; CountValueProductsOrServices(); } }
 
 
-        public int TaxValue { get; private set; }
+        public float TaxValue { get; private set; }
 
-        public int GrossSum { get; private set; }
+        public float GrossValue { get; private set; }
 
         public ProductOrService(string nameOfTheProductOrService, string unit, int countOfProductsOrServices, int unitPriceOfProductOrService, int discountsOfPrice, bool isPercentDiscount, int netValueOfProductsOrServices, int taxRate)
         {
@@ -56,8 +56,8 @@ namespace InvoiceRegister.Models
 
             TaxValue = NetValue * TaxRate;
             OnPropertyChange(nameof(TaxValue));
-            GrossSum = NetValue + TaxValue;
-            OnPropertyChange(nameof(GrossSum));
+            GrossValue = NetValue + TaxValue;
+            OnPropertyChange(nameof(GrossValue));
         }
 
     }

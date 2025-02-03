@@ -39,7 +39,7 @@ namespace InvoiceRegister.ViewModels
         {
             this.invoiceView = invoiceView;
             CancelInvoiceCommand = new CancelCommand(invoiceView);
-            SaveInvoiceCommand = new SaveCommand(invoiceView);
+            SaveInvoiceCommand = new SaveCommand(invoiceView, new SaveInvoiceCommand());
         }
     }
 }

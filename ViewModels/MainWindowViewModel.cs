@@ -1,7 +1,11 @@
 ﻿using InvoiceRegister.Command;
+using InvoiceRegister.Entities;
 using InvoiceRegister.Models;
 using InvoiceRegister.Services;
+using InvoiceRegister.Services.Mappers;
 using InvoiceRegister.Views;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -9,6 +13,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
 
@@ -71,113 +76,15 @@ namespace InvoiceRegister.ViewModels
             
             AddNewInvoiceCommand = new AddNewInvoiceCommand();
 
-            invoices.Add(new Invoice(InvoiceTypeEnum.Sale, DateTime.Today, new Subject("123456789", "AlaMaKota", false, "05-200", "Polna", "1", "Warszawa"),
+            invoices.Add(new Invoice(InvoiceTypeEnum.Sale, DateTime.Today, new Subject("2222222222", "AlaMaKota", false, "05-200", "Polna", "1", "Warszawa"),
                 issue, DocumentTypeEnum.Invoice, DateTime.Today, PaymentTypeEnum.Cash, true));
             invoices.Add(new Invoice(InvoiceTypeEnum.Purchase, new DateTime(2025, 1, 16), issue,
-                new Subject("123456789", "Budimex", false, "05-200", "Polna", "1", "Warszawa"), DocumentTypeEnum.Invoice, DateTime.Today, PaymentTypeEnum.Transfer, false, new DateTime(2025, 2, 1)));
-            invoices.Add(new Invoice(InvoiceTypeEnum.Sale, new DateTime(2025, 1, 20), new Subject("666666666", "Bob Sp z.o.o.", false, "05-400", "Krakowska", "1", "Katowice"),
+                new Subject("3333333333", "Jan Kowalski", false, "05-200", "Polna", "1", "Warszawa"), DocumentTypeEnum.Invoice, DateTime.Today, PaymentTypeEnum.Transfer, false, new DateTime(2025, 2, 1)));
+            invoices.Add(new Invoice(InvoiceTypeEnum.Sale, new DateTime(2025, 1, 20), new Subject("5555555555", "Bob Sp z.o.o.", false, "05-400", "Krakowska", "1", "Katowice"),
                 issue, DocumentTypeEnum.Invoice, DateTime.Today, PaymentTypeEnum.Transfer, false, new DateTime(2025, 3, 1)));
-            invoices.Add(new Invoice(InvoiceTypeEnum.Sale, new DateTime(2025, 1, 24), new Subject("6969696969", "Bob&bob Sp z.o.o.", false, "05-410", "Kurkowa", "8", "Zielonka"),
+            invoices.Add(new Invoice(InvoiceTypeEnum.Sale, new DateTime(2025, 1, 24), new Subject("4444444444", "Bob&bob Sp z.o.o.", false, "05-410", "Kurkowa", "8", "Poznań"),
                 issue, DocumentTypeEnum.Correction, DateTime.Today, PaymentTypeEnum.Transfer, false, new DateTime(2025, 1, 11)));
-            invoices.Add(new Invoice(InvoiceTypeEnum.Sale, DateTime.Today, new Subject("123456789", "AlaMaKota", false, "05-200", "Polna", "1", "Warszawa"),
-                issue, DocumentTypeEnum.Invoice, DateTime.Today, PaymentTypeEnum.Cash, true));
-            invoices.Add(new Invoice(InvoiceTypeEnum.Purchase, new DateTime(2025, 1, 16), issue,
-                new Subject("123456789", "Budimex", false, "05-200", "Polna", "1", "Warszawa"), DocumentTypeEnum.Invoice, DateTime.Today, PaymentTypeEnum.Transfer, false, new DateTime(2025, 2, 1)));
-            invoices.Add(new Invoice(InvoiceTypeEnum.Sale, new DateTime(2025, 1, 20), new Subject("666666666", "Bob Sp z.o.o.", false, "05-400", "Krakowska", "1", "Katowice"),
-                issue, DocumentTypeEnum.Invoice, DateTime.Today, PaymentTypeEnum.Transfer, false, new DateTime(2025, 3, 1)));
-            invoices.Add(new Invoice(InvoiceTypeEnum.Sale, new DateTime(2025, 1, 24), new Subject("6969696969", "Bob&bob Sp z.o.o.", false, "05-410", "Kurkowa", "8", "Zielonka"),
-                issue, DocumentTypeEnum.Correction, DateTime.Today, PaymentTypeEnum.Transfer, false, new DateTime(2025, 1, 11)));
-            invoices.Add(new Invoice(InvoiceTypeEnum.Sale, DateTime.Today, new Subject("123456789", "AlaMaKota", false, "05-200", "Polna", "1", "Warszawa"),
-                            issue, DocumentTypeEnum.Invoice, DateTime.Today, PaymentTypeEnum.Cash, true));
-            invoices.Add(new Invoice(InvoiceTypeEnum.Purchase, new DateTime(2025, 1, 16), issue,
-                new Subject("123456789", "Budimex", false, "05-200", "Polna", "1", "Warszawa"), DocumentTypeEnum.Invoice, DateTime.Today, PaymentTypeEnum.Transfer, false, new DateTime(2025, 2, 1)));
-            invoices.Add(new Invoice(InvoiceTypeEnum.Sale, new DateTime(2025, 1, 20), new Subject("666666666", "Bob Sp z.o.o.", false, "05-400", "Krakowska", "1", "Katowice"),
-                issue, DocumentTypeEnum.Invoice, DateTime.Today, PaymentTypeEnum.Transfer, false, new DateTime(2025, 3, 1)));
-            invoices.Add(new Invoice(InvoiceTypeEnum.Sale, new DateTime(2025, 1, 24), new Subject("6969696969", "Bob&bob Sp z.o.o.", false, "05-410", "Kurkowa", "8", "Zielonka"),
-                issue, DocumentTypeEnum.Correction, DateTime.Today, PaymentTypeEnum.Transfer, false, new DateTime(2025, 1, 11)));
-            invoices.Add(new Invoice(InvoiceTypeEnum.Sale, DateTime.Today, new Subject("123456789", "AlaMaKota", false, "05-200", "Polna", "1", "Warszawa"),
-                            issue, DocumentTypeEnum.Invoice, DateTime.Today, PaymentTypeEnum.Cash, true));
-            invoices.Add(new Invoice(InvoiceTypeEnum.Purchase, new DateTime(2025, 1, 16), issue,
-                new Subject("123456789", "Budimex", false, "05-200", "Polna", "1", "Warszawa"), DocumentTypeEnum.Invoice, DateTime.Today, PaymentTypeEnum.Transfer, false, new DateTime(2025, 2, 1)));
-            invoices.Add(new Invoice(InvoiceTypeEnum.Sale, new DateTime(2025, 1, 20), new Subject("666666666", "Bob Sp z.o.o.", false, "05-400", "Krakowska", "1", "Katowice"),
-                issue, DocumentTypeEnum.Invoice, DateTime.Today, PaymentTypeEnum.Transfer, false, new DateTime(2025, 3, 1)));
-            invoices.Add(new Invoice(InvoiceTypeEnum.Sale, new DateTime(2025, 1, 24), new Subject("6969696969", "Bob&bob Sp z.o.o.", false, "05-410", "Kurkowa", "8", "Zielonka"),
-                issue, DocumentTypeEnum.Correction, DateTime.Today, PaymentTypeEnum.Transfer, false, new DateTime(2025, 1, 11)));
-            invoices.Add(new Invoice(InvoiceTypeEnum.Sale, DateTime.Today, new Subject("123456789", "AlaMaKota", false, "05-200", "Polna", "1", "Warszawa"),
-                            issue, DocumentTypeEnum.Invoice, DateTime.Today, PaymentTypeEnum.Cash, true));
-            invoices.Add(new Invoice(InvoiceTypeEnum.Purchase, new DateTime(2025, 1, 16), issue,
-                new Subject("123456789", "Budimex", false, "05-200", "Polna", "1", "Warszawa"), DocumentTypeEnum.Invoice, DateTime.Today, PaymentTypeEnum.Transfer, false, new DateTime(2025, 2, 1)));
-            invoices.Add(new Invoice(InvoiceTypeEnum.Sale, new DateTime(2025, 1, 20), new Subject("666666666", "Bob Sp z.o.o.", false, "05-400", "Krakowska", "1", "Katowice"),
-                issue, DocumentTypeEnum.Invoice, DateTime.Today, PaymentTypeEnum.Transfer, false, new DateTime(2025, 3, 1)));
-            invoices.Add(new Invoice(InvoiceTypeEnum.Sale, new DateTime(2025, 1, 24), new Subject("6969696969", "Bob&bob Sp z.o.o.", false, "05-410", "Kurkowa", "8", "Zielonka"),
-                issue, DocumentTypeEnum.Correction, DateTime.Today, PaymentTypeEnum.Transfer, false, new DateTime(2025, 1, 11)));
-            invoices.Add(new Invoice(InvoiceTypeEnum.Sale, DateTime.Today, new Subject("123456789", "AlaMaKota", false, "05-200", "Polna", "1", "Warszawa"),
-                            issue, DocumentTypeEnum.Invoice, DateTime.Today, PaymentTypeEnum.Cash, true));
-            invoices.Add(new Invoice(InvoiceTypeEnum.Purchase, new DateTime(2025, 1, 16), issue,
-                new Subject("123456789", "Budimex", false, "05-200", "Polna", "1", "Warszawa"), DocumentTypeEnum.Invoice, DateTime.Today, PaymentTypeEnum.Transfer, false, new DateTime(2025, 2, 1)));
-            invoices.Add(new Invoice(InvoiceTypeEnum.Sale, new DateTime(2025, 1, 20), new Subject("666666666", "Bob Sp z.o.o.", false, "05-400", "Krakowska", "1", "Katowice"),
-                issue, DocumentTypeEnum.Invoice, DateTime.Today, PaymentTypeEnum.Transfer, false, new DateTime(2025, 3, 1)));
-            invoices.Add(new Invoice(InvoiceTypeEnum.Sale, new DateTime(2025, 1, 24), new Subject("6969696969", "Bob&bob Sp z.o.o.", false, "05-410", "Kurkowa", "8", "Zielonka"),
-                issue, DocumentTypeEnum.Correction, DateTime.Today, PaymentTypeEnum.Transfer, false, new DateTime(2025, 1, 11)));
-            invoices.Add(new Invoice(InvoiceTypeEnum.Sale, DateTime.Today, new Subject("123456789", "AlaMaKota", false, "05-200", "Polna", "1", "Warszawa"),
-                            issue, DocumentTypeEnum.Invoice, DateTime.Today, PaymentTypeEnum.Cash, true));
-            invoices.Add(new Invoice(InvoiceTypeEnum.Purchase, new DateTime(2025, 1, 16), issue,
-                new Subject("123456789", "Budimex", false, "05-200", "Polna", "1", "Warszawa"), DocumentTypeEnum.Invoice, DateTime.Today, PaymentTypeEnum.Transfer, false, new DateTime(2025, 2, 1)));
-            invoices.Add(new Invoice(InvoiceTypeEnum.Sale, new DateTime(2025, 1, 20), new Subject("666666666", "Bob Sp z.o.o.", false, "05-400", "Krakowska", "1", "Katowice"),
-                issue, DocumentTypeEnum.Invoice, DateTime.Today, PaymentTypeEnum.Transfer, false, new DateTime(2025, 3, 1)));
-            invoices.Add(new Invoice(InvoiceTypeEnum.Sale, new DateTime(2025, 1, 24), new Subject("6969696969", "Bob&bob Sp z.o.o.", false, "05-410", "Kurkowa", "8", "Zielonka"),
-                issue, DocumentTypeEnum.Correction, DateTime.Today, PaymentTypeEnum.Transfer, false, new DateTime(2025, 1, 11)));
-            invoices.Add(new Invoice(InvoiceTypeEnum.Sale, DateTime.Today, new Subject("123456789", "AlaMaKota", false, "05-200", "Polna", "1", "Warszawa"),
-                            issue, DocumentTypeEnum.Invoice, DateTime.Today, PaymentTypeEnum.Cash, true));
-            invoices.Add(new Invoice(InvoiceTypeEnum.Purchase, new DateTime(2025, 1, 16), issue,
-                new Subject("123456789", "Budimex", false, "05-200", "Polna", "1", "Warszawa"), DocumentTypeEnum.Invoice, DateTime.Today, PaymentTypeEnum.Transfer, false, new DateTime(2025, 2, 1)));
-            invoices.Add(new Invoice(InvoiceTypeEnum.Sale, new DateTime(2025, 1, 20), new Subject("666666666", "Bob Sp z.o.o.", false, "05-400", "Krakowska", "1", "Katowice"),
-                issue, DocumentTypeEnum.Invoice, DateTime.Today, PaymentTypeEnum.Transfer, false, new DateTime(2025, 3, 1)));
-            invoices.Add(new Invoice(InvoiceTypeEnum.Sale, new DateTime(2025, 1, 24), new Subject("6969696969", "Bob&bob Sp z.o.o.", false, "05-410", "Kurkowa", "8", "Zielonka"),
-                issue, DocumentTypeEnum.Correction, DateTime.Today, PaymentTypeEnum.Transfer, false, new DateTime(2025, 1, 11)));
-            invoices.Add(new Invoice(InvoiceTypeEnum.Sale, DateTime.Today, new Subject("123456789", "AlaMaKota", false, "05-200", "Polna", "1", "Warszawa"),
-                            issue, DocumentTypeEnum.Invoice, DateTime.Today, PaymentTypeEnum.Cash, true));
-            invoices.Add(new Invoice(InvoiceTypeEnum.Purchase, new DateTime(2025, 1, 16), issue,
-                new Subject("123456789", "Budimex", false, "05-200", "Polna", "1", "Warszawa"), DocumentTypeEnum.Invoice, DateTime.Today, PaymentTypeEnum.Transfer, false, new DateTime(2025, 2, 1)));
-            invoices.Add(new Invoice(InvoiceTypeEnum.Sale, new DateTime(2025, 1, 20), new Subject("666666666", "Bob Sp z.o.o.", false, "05-400", "Krakowska", "1", "Katowice"),
-                issue, DocumentTypeEnum.Invoice, DateTime.Today, PaymentTypeEnum.Transfer, false, new DateTime(2025, 3, 1)));
-            invoices.Add(new Invoice(InvoiceTypeEnum.Sale, new DateTime(2025, 1, 24), new Subject("6969696969", "Bob&bob Sp z.o.o.", false, "05-410", "Kurkowa", "8", "Zielonka"),
-                issue, DocumentTypeEnum.Correction, DateTime.Today, PaymentTypeEnum.Transfer, false, new DateTime(2025, 1, 11)));
-            invoices.Add(new Invoice(InvoiceTypeEnum.Sale, DateTime.Today, new Subject("123456789", "AlaMaKota", false, "05-200", "Polna", "1", "Warszawa"),
-                            issue, DocumentTypeEnum.Invoice, DateTime.Today, PaymentTypeEnum.Cash, true));
-            invoices.Add(new Invoice(InvoiceTypeEnum.Purchase, new DateTime(2025, 1, 16), issue,
-                new Subject("123456789", "Budimex", false, "05-200", "Polna", "1", "Warszawa"), DocumentTypeEnum.Invoice, DateTime.Today, PaymentTypeEnum.Transfer, false, new DateTime(2025, 2, 1)));
-            invoices.Add(new Invoice(InvoiceTypeEnum.Sale, new DateTime(2025, 1, 20), new Subject("666666666", "Bob Sp z.o.o.", false, "05-400", "Krakowska", "1", "Katowice"),
-                issue, DocumentTypeEnum.Invoice, DateTime.Today, PaymentTypeEnum.Transfer, false, new DateTime(2025, 3, 1)));
-            invoices.Add(new Invoice(InvoiceTypeEnum.Sale, new DateTime(2025, 1, 24), new Subject("6969696969", "Bob&bob Sp z.o.o.", false, "05-410", "Kurkowa", "8", "Zielonka"),
-                issue, DocumentTypeEnum.Correction, DateTime.Today, PaymentTypeEnum.Transfer, false, new DateTime(2025, 1, 11)));
-            invoices.Add(new Invoice(InvoiceTypeEnum.Sale, DateTime.Today, new Subject("123456789", "AlaMaKota", false, "05-200", "Polna", "1", "Warszawa"),
-                            issue, DocumentTypeEnum.Invoice, DateTime.Today, PaymentTypeEnum.Cash, true));
-            invoices.Add(new Invoice(InvoiceTypeEnum.Purchase, new DateTime(2025, 1, 16), issue,
-                new Subject("123456789", "Budimex", false, "05-200", "Polna", "1", "Warszawa"), DocumentTypeEnum.Invoice, DateTime.Today, PaymentTypeEnum.Transfer, false, new DateTime(2025, 2, 1)));
-            invoices.Add(new Invoice(InvoiceTypeEnum.Sale, new DateTime(2025, 1, 20), new Subject("666666666", "Bob Sp z.o.o.", false, "05-400", "Krakowska", "1", "Katowice"),
-                issue, DocumentTypeEnum.Invoice, DateTime.Today, PaymentTypeEnum.Transfer, false, new DateTime(2025, 3, 1)));
-            invoices.Add(new Invoice(InvoiceTypeEnum.Sale, new DateTime(2025, 1, 24), new Subject("6969696969", "Bob&bob Sp z.o.o.", false, "05-410", "Kurkowa", "8", "Zielonka"),
-                issue, DocumentTypeEnum.Correction, DateTime.Today, PaymentTypeEnum.Transfer, false, new DateTime(2025, 1, 11)));
-            invoices.Add(new Invoice(InvoiceTypeEnum.Sale, DateTime.Today, new Subject("123456789", "AlaMaKota", false, "05-200", "Polna", "1", "Warszawa"),
-                            issue, DocumentTypeEnum.Invoice, DateTime.Today, PaymentTypeEnum.Cash, true));
-            invoices.Add(new Invoice(InvoiceTypeEnum.Purchase, new DateTime(2025, 1, 16), issue,
-                new Subject("123456789", "Budimex", false, "05-200", "Polna", "1", "Warszawa"), DocumentTypeEnum.Invoice, DateTime.Today, PaymentTypeEnum.Transfer, false, new DateTime(2025, 2, 1)));
-            invoices.Add(new Invoice(InvoiceTypeEnum.Sale, new DateTime(2025, 1, 20), new Subject("666666666", "Bob Sp z.o.o.", false, "05-400", "Krakowska", "1", "Katowice"),
-                issue, DocumentTypeEnum.Invoice, DateTime.Today, PaymentTypeEnum.Transfer, false, new DateTime(2025, 3, 1)));
-            invoices.Add(new Invoice(InvoiceTypeEnum.Sale, new DateTime(2025, 1, 24), new Subject("6969696969", "Bob&bob Sp z.o.o.", false, "05-410", "Kurkowa", "8", "Zielonka"),
-                issue, DocumentTypeEnum.Correction, DateTime.Today, PaymentTypeEnum.Transfer, false, new DateTime(2025, 1, 11)));
-            invoices.Add(new Invoice(InvoiceTypeEnum.Sale, DateTime.Today, new Subject("123456789", "AlaMaKota", false, "05-200", "Polna", "1", "Warszawa"),
-                            issue, DocumentTypeEnum.Invoice, DateTime.Today, PaymentTypeEnum.Cash, true));
-            invoices.Add(new Invoice(InvoiceTypeEnum.Purchase, new DateTime(2025, 1, 16), issue,
-                new Subject("123456789", "Budimex", false, "05-200", "Polna", "1", "Warszawa"), DocumentTypeEnum.Invoice, DateTime.Today, PaymentTypeEnum.Transfer, false, new DateTime(2025, 2, 1)));
-            invoices.Add(new Invoice(InvoiceTypeEnum.Sale, new DateTime(2025, 1, 20), new Subject("666666666", "Bob Sp z.o.o.", false, "05-400", "Krakowska", "1", "Katowice"),
-                issue, DocumentTypeEnum.Invoice, DateTime.Today, PaymentTypeEnum.Transfer, false, new DateTime(2025, 3, 1)));
-            invoices.Add(new Invoice(InvoiceTypeEnum.Sale, new DateTime(2025, 1, 24), new Subject("6969696969", "Bob&bob Sp z.o.o.", false, "05-410", "Kurkowa", "8", "Zielonka"),
-                issue, DocumentTypeEnum.Correction, DateTime.Today, PaymentTypeEnum.Transfer, false, new DateTime(2025, 1, 11)));
-
-
-
+            
             InvoicesView = CollectionViewSource.GetDefaultView(invoices);
             InvoiceTypeView = InvoiceTypeEnum.Sale;
             InvoiceTypeFilter();
@@ -228,8 +135,8 @@ namespace InvoiceRegister.ViewModels
                                    (
                                        (invoice.InvoiceNumber != null && invoice.InvoiceNumber.Contains(searchText)) ||
                                        (invoice.Purchaser.Name != null && invoice.Purchaser.Name.Contains(searchText)) ||
-                                       (invoice.Purchaser.NIP != null && invoice.Purchaser.NIP.Contains(searchText)) ||
-                                       (invoice.TotalSumOfValueProductsOrServices.ToString() != null && invoice.TotalSumOfValueProductsOrServices.ToString().Contains(searchText))
+                                       (invoice.Purchaser.Nip != null && invoice.Purchaser.Nip.Contains(searchText)) ||
+                                       (invoice.TotalSumOfGrossValue.ToString() != null && invoice.TotalSumOfGrossValue.ToString().Contains(searchText))
                                    )
                                    );
 
@@ -240,8 +147,8 @@ namespace InvoiceRegister.ViewModels
                                    (
                                        (invoice.InvoiceNumber != null && invoice.InvoiceNumber.Contains(searchText)) ||
                                        (invoice.Issuer.Name != null && invoice.Issuer.Name.Contains(searchText)) ||
-                                       (invoice.Issuer.NIP != null && invoice.Issuer.NIP.Contains(searchText)) ||
-                                       (invoice.TotalSumOfValueProductsOrServices.ToString() != null && invoice.TotalSumOfValueProductsOrServices.ToString().Contains(searchText))
+                                       (invoice.Issuer.Nip != null && invoice.Issuer.Nip.Contains(searchText)) ||
+                                       (invoice.TotalSumOfGrossValue.ToString() != null && invoice.TotalSumOfGrossValue.ToString().Contains(searchText))
                                    )
                                    );
 
@@ -257,5 +164,39 @@ namespace InvoiceRegister.ViewModels
             }
         }
 
+
+        private async Task<List<Invoice>> GetInvoicesFromDatabaseAsync()
+        {
+            try
+            {
+                using (var scope = App.ServiceProvider.CreateScope())
+                {
+                    var context = scope.ServiceProvider.GetRequiredService<InvoiceDbContext>();
+
+                    var invoicesEntities = await context.Invoices.ToListAsync();
+
+
+                    List<Invoice> invoices = [];
+
+                    if (invoicesEntities != null)
+                    {
+                        foreach (var invoiceEntity in invoicesEntities)
+                        {
+                            invoices.Add(InvoiceMapper.ToModel(invoiceEntity));
+
+                        }
+
+                    }
+
+                    return invoices;
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Błąd połączenia z bazą danych");
+                return new List<Invoice>();
+            }
+
+        }
     }
 }

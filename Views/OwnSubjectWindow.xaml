@@ -12,11 +12,11 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         
-        <local:SubjectView />
+        <local:SubjectView x:Name="Subject" />
         <DockPanel Grid.Row="1" Margin="10" >
-            <Button DockPanel.Dock="Left" Padding="5" Content="Zapisz i zamknij" />
-            <Button DockPanel.Dock="Left" Margin="10,0"  Padding="5" Content="Zapisz"/>
-            <Button DockPanel.Dock="Right" HorizontalAlignment="Right" Width="45" Padding="5" Content="Anuluj"/>
+            <Button DockPanel.Dock="Left" Padding="5" Content="Zapisz i zamknij" Command="{Binding Path=SaveOwnCommand}" CommandParameter="SaveAndClose"/>
+            <Button DockPanel.Dock="Left" Margin="10,0"  Padding="5" Content="Zapisz"  Command="{Binding Path=SaveOwnCommand}" CommandParameter="Save"/>
+            <Button DockPanel.Dock="Right" HorizontalAlignment="Right" Width="45" Padding="5" Content="Anuluj" Command="{Binding Path=CancelCommand}"/>
         </DockPanel>
     </Grid>
 </Window>

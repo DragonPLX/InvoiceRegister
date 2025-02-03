@@ -1,4 +1,4 @@
-﻿using InvoiceRegister.Models;
+﻿using InvoiceRegister.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -7,24 +7,21 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
 
-namespace InvoiceRegister.Services
+namespace InvoiceRegister.Services.Converters
 {
-    public class DocumentTypeConverter : IValueConverter
+    public class DateBeforeDeadLineConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if(value is DocumentTypeEnum document)
+            if (value is DateTime date)
             {
-                if (document == DocumentTypeEnum.Invoice)
-                {
-                    return "FV";
-                }
-                else if (document == DocumentTypeEnum.Correction) 
-                {
-                    return "Kor";
-                }
+                if (date - DateTime.Today <= TimeSpan.FromDays(MainWindowViewModel.Instance.DayToDeadLine))
+                    return true;
+                else
+                    return false;
             }
-            return string.Empty;
+
+            return false;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

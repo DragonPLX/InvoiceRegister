@@ -32,7 +32,7 @@ namespace InvoiceRegister.ViewModels
         public OptionViewModel(OptionView userControl) 
         {
             CancelOptionCommand = new CancelCommand(userControl);
-            SaveOptionCommand = new SaveCommand(userControl);
+            SaveOptionCommand = new SaveCommand(userControl, new SaveOptionCommand());
         }
     }
 }

@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:InvoiceRegister.Views"
-             xmlns:services="clr-namespace:InvoiceRegister.Services"
+             xmlns:services="clr-namespace:InvoiceRegister.Services.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800" Background="White">
     <UserControl.Resources>
@@ -69,7 +69,7 @@
                 <DataGridTextColumn Width="*" Header="Data wystawienia" Binding="{Binding Path=DateOfIssue, StringFormat=yyyy-MM-dd}"/>
                 <DataGridTextColumn Width="auto" Header="Data VAT" />
                 <DataGridTextColumn Width="*" Header="Data płatności" Binding="{Binding Path=DateOfPayment, StringFormat=yyyy-MM-dd}" />
-                <DataGridTextColumn Width="*" Header="Kwota" Binding="{Binding Path=TotalSumOfValueProductsOrServices}"/>
+                <DataGridTextColumn Width="*" Header="Kwota" Binding="{Binding Path=TotalSumOfGrossValue}"/>
                 <DataGridTextColumn Width="auto" Header="Płatności" Binding="{Binding Path=Payment , Converter={StaticResource PaymentTypeConverter}}"/>
                 <DataGridTemplateColumn Width="*" Header="Status">
                     <DataGridTemplateColumn.CellTemplate>
